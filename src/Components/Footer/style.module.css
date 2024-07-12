@@ -1,0 +1,27 @@
+@import '../../variables.module';
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 17px 20px;
+  background-color: var(--color-blue-dark);
+  color: var(--color-light);
+}
+
+.tasks {
+  display: flex;
+  align-items: center;
+  column-gap: 36px;
+
+  .task {
+    margin: 0;
+  }
+}
+
+.menuButton {
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  border: none;
+}
