@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  background-color: var(--color-blue-dark);
+}
+
+.title {
+  margin: 0;
+  font-weight: 400;
+  font-size: 28px;
+  color: var(--color-light);
+}
+
+.userMenu {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-light);
+}
+
+.menuButton {
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  border: none;
+}
