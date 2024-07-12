@@ -1,0 +1,37 @@
+@import '../../variables.module';
+
+.button {
+  min-width: 102px;
+
+  border: none;
+  background-color: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  column-gap: 4px;
+  padding: 4px 6px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: var(--border-radius);
+  color: var(--color-gray-dark);
+  background-color: inherit;
+  transition: 0.2s all;
+
+  &:hover {
+    background-color: var(--color-light);
+  }
+
+  &:disabled {
+    cursor: default;
+    &:hover {
+      background-color: inherit;
+    }
+  }
+}
+
+.submit {
+  &:hover {
+    color: var(--color-light);
+    background-color: var(--color-blue);
+  }
+}
