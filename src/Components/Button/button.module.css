@@ -35,6 +35,8 @@
 
 .submit {
   column-gap: 0px;
+  color: var(--color-light);
+  background-color: var(--color-blue);
 
   &::before {
     content: '';
@@ -43,5 +45,10 @@
   &:hover {
     color: var(--color-light);
     background-color: var(--color-blue);
+  }
+
+  &:disabled {
+    color: var(--color-gray-dark);
+    background-color: inherit;
   }
 }
