@@ -1,21 +1,18 @@
 import style from './TaskItem.module.css'
 import { Button } from '../Button/Button'
 import { useState } from 'react'
+import { dataMock } from '../../data'
 
 export const TaskItem = ({ title, tasks }) => {
   const [isSubmit, setIsSubmit] = useState(false)
-  const [newTask, setNewTask] = useState(null)
+  const [newTask, setNewTask] = useState('')
 
-  const addNewTask = e => {
-    console.log(e)
-    setIsSubmit(!isSubmit)
-  }
   const sendNewTask = () => {
     if (!newTask) return null
 
     console.log(`Задача ${newTask}, добавлена в список`)
 
-    setNewTask(null)
+    setNewTask('')
     setIsSubmit(false)
   }
 
@@ -40,23 +37,37 @@ export const TaskItem = ({ title, tasks }) => {
         ></input>
       )}
 
+      {title === 'Ready' && (
+        <Button disabled={!dataMock[0].tasks.length} key={title}>
+          Add
+        </Button>
+      )}
+      {title === 'In Progress' && (
+        <Button disabled={!dataMock[1].tasks.length} key={title}>
+          Add
+        </Button>
+      )}
+      {title === 'Finished' && (
+        <Button disabled={!dataMock[2].tasks.length} key={title}>
+          Add
+        </Button>
+      )}
+
       {isSubmit && title === 'Backlog' ? (
         <Button
           onClick={sendNewTask}
           isSubmit={isSubmit}
-          disabled={!tasks.length}
+          disabled={!newTask.length}
           key={title}
         >
           Submit
         </Button>
       ) : (
-        <Button
-          onClick={e => addNewTask(e)}
-          disabled={!tasks.length}
-          key={title}
-        >
-          Add
-        </Button>
+        title === 'Backlog' && (
+          <Button onClick={() => setIsSubmit(true)} key={title}>
+            Add
+          </Button>
+        )
       )}
     </div>
   )
