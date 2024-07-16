@@ -17,6 +17,10 @@
   background-color: inherit;
   transition: 0.2s all;
 
+  &::before {
+    content: url('../../assets/icons/plus.svg');
+  }
+
   &:hover {
     background-color: var(--color-light);
   }
@@ -30,6 +34,12 @@
 }
 
 .submit {
+  column-gap: 0px;
+
+  &::before {
+    content: '';
+  }
+
   &:hover {
     color: var(--color-light);
     background-color: var(--color-blue);
