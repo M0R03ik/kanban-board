@@ -7,10 +7,19 @@ export const TaskItem = ({ title, tasks }) => {
   const [isSubmit, setIsSubmit] = useState(false)
   const [newTask, setNewTask] = useState('')
 
-  const sendNewTask = () => {
+  const getId = () => {
+    return Date.now().toString().slice(-5)
+  }
+  const createNewTask = () => {
     if (!newTask) return null
 
-    console.log(`Задача ${newTask}, добавлена в список`)
+    const newData = {
+      id: getId(),
+      name: newTask,
+      description: 'This task has no description',
+    }
+
+    dataMock[0].tasks.push(newData)
 
     setNewTask('')
     setIsSubmit(false)
@@ -55,7 +64,7 @@ export const TaskItem = ({ title, tasks }) => {
 
       {isSubmit && title === 'Backlog' ? (
         <Button
-          onClick={sendNewTask}
+          onClick={createNewTask}
           isSubmit={isSubmit}
           disabled={!newTask.length}
           key={title}
