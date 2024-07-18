@@ -1,0 +1,50 @@
+.wrap {
+  position: relative;
+  width: 100%;
+  z-index: 1000;
+}
+
+.control {
+  position: relative;
+  background-color: var(--color-light);
+  border-radius: var(--border-radius);
+  color: var(--color-gray);
+  cursor: pointer;
+  padding: 7px;
+  transition: all 0.2s;
+
+  &::after {
+    content: url('../../assets/icons/drop-down-arrow.svg');
+    position: absolute;
+    right: 11px;
+  }
+}
+
+.menu {
+  position: absolute;
+  background-color: var(--color-light);
+  border-radius: var(--border-radius);
+  margin-top: 3px;
+  max-height: 200px;
+  overflow-y: auto;
+  top: 100%;
+  width: 100%;
+  z-index: 1000;
+  -webkit-overflow-scrolling: touch;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  padding: 7px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: var(--color-gray);
+  }
+}
