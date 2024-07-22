@@ -1,11 +1,11 @@
 import { TaskItemList } from '../TaskItem/TaskItemList'
 import style from './Content.module.css'
 
-export const Content = () => {
+export const Content = ({ tasks, setTasks }) => {
   return (
     <>
       <main className={style.content}>
-        <TaskItemList />
+        <TaskItemList tasks={tasks} setData={setTasks} />
       </main>
     </>
   )
