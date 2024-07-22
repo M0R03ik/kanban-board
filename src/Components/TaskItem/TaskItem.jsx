@@ -1,30 +1,20 @@
 import style from './TaskItem.module.css'
 import { Button } from '../Button/Button'
-import { useState } from 'react'
-import { dataMock } from '../../data'
+import { DropDown } from '../DropDown/DropDown'
 
-export const TaskItem = ({ title, tasks }) => {
-  const [isSubmit, setIsSubmit] = useState(false)
-  const [newTask, setNewTask] = useState('')
-
-  const getId = () => {
-    return Date.now().toString().slice(-5)
-  }
-  const createNewTask = () => {
-    if (!newTask) return null
-
-    const newData = {
-      id: getId(),
-      name: newTask,
-      description: 'This task has no description',
-    }
-
-    dataMock[0].tasks.push(newData)
-
-    setNewTask('')
-    setIsSubmit(false)
-  }
-
+export const TaskItem = ({
+  title,
+  tasks,
+  isSubmit,
+  setIsSubmit,
+  isSelect,
+  setIsSelect,
+  createNewTask,
+  getNewTask,
+  newTask,
+  setNewTask,
+  data,
+}) => {
   return (
     <div className={style.task}>
       <h2 className={style.title}>{title}</h2>
@@ -37,7 +27,7 @@ export const TaskItem = ({ title, tasks }) => {
           )
         })}
       </ul>
-      {isSubmit && (
+      {isSubmit && title === 'Backlog' && (
         <input
           type='text'
           onChange={e => setNewTask(e.target.value)}
@@ -46,18 +36,44 @@ export const TaskItem = ({ title, tasks }) => {
         ></input>
       )}
 
+      {isSelect && title === 'Ready' && (
+        <DropDown {...data[0]} onClick={getNewTask} />
+      )}
+
       {title === 'Ready' && (
-        <Button disabled={!dataMock[0].tasks.length} key={title}>
+        <Button
+          disabled={!data[0].tasks.length}
+          key={title}
+          onClick={() => setIsSelect(true)}
+        >
           Add
         </Button>
       )}
+
+      {isSelect && title === 'In Progress' && (
+        <DropDown {...data[1]} onClick={getNewTask} />
+      )}
+
       {title === 'In Progress' && (
-        <Button disabled={!dataMock[1].tasks.length} key={title}>
+        <Button
+          disabled={!data[1].tasks.length}
+          key={title}
+          onClick={() => setIsSelect(true)}
+        >
           Add
         </Button>
       )}
+
+      {isSelect && title === 'Finished' && (
+        <DropDown {...data[2]} onClick={getNewTask} />
+      )}
+
       {title === 'Finished' && (
-        <Button disabled={!dataMock[2].tasks.length} key={title}>
+        <Button
+          disabled={!data[2].tasks.length}
+          key={title}
+          onClick={() => setIsSelect(true)}
+        >
           Add
         </Button>
       )}
