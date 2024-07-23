@@ -1,19 +1,24 @@
 import style from './TaskItem.module.css'
+import { LIST_TYPES } from '../../config'
 import { Button } from '../Button/Button'
 import { DropDown } from '../DropDown/DropDown'
+import { useState } from 'react'
+import { Form } from '../Form/Form'
 
 export const TaskItem = ({
   title,
   tasks,
+  type,
+  setTasks,
   isSubmit,
   setIsSubmit,
-  isSelect,
-  setIsSelect,
+  // isSelect,
+  // setIsSelect,
   createNewTask,
-  getNewTask,
-  newTask,
-  setNewTask,
-  data,
+  // getNewTask,
+  // newTask,
+  // setNewTask,
+  // data,
 }) => {
   return (
     <div className={style.task}>
@@ -27,14 +32,18 @@ export const TaskItem = ({
           )
         })}
       </ul>
-      {isSubmit && title === 'Backlog' && (
-        <input
-          type='text'
-          onChange={e => setNewTask(e.target.value)}
-          value={newTask}
-          className={style.newTask}
-        ></input>
+      {isSubmit && type === LIST_TYPES.BACKLOG && (
+        <Form createNewTask={createNewTask} />
       )}
+      {!isSubmit && type === LIST_TYPES.BACKLOG ? (
+        <Button onClick={() => setIsSubmit(true)} key={title}>
+          Add
+        </Button>
+      ) : null}
+
+      {type !== LIST_TYPES.BACKLOG && <Button>Add</Button>}
+
+      {/* 
 
       {isSelect && title === 'Ready' && (
         <DropDown {...data[0]} onClick={getNewTask} />
@@ -78,22 +87,7 @@ export const TaskItem = ({
         </Button>
       )}
 
-      {isSubmit && title === 'Backlog' ? (
-        <Button
-          onClick={createNewTask}
-          isSubmit={isSubmit}
-          disabled={!newTask.length}
-          key={title}
-        >
-          Submit
-        </Button>
-      ) : (
-        title === 'Backlog' && (
-          <Button onClick={() => setIsSubmit(true)} key={title}>
-            Add
-          </Button>
-        )
-      )}
+       */}
     </div>
   )
 }

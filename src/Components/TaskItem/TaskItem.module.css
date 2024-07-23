@@ -41,13 +41,3 @@
   border-radius: var(--border-radius);
   list-style: none;
 }
-
-.newTask {
-  font-family: inherit;
-  font-size: inherit;
-  width: 100%;
-  padding: 7px;
-  outline: none;
-  border: none;
-  border-radius: var(--border-radius);
-}

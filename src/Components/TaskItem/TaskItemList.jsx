@@ -1,92 +1,84 @@
 import style from './TaskItem.module.css'
+import { LIST_TYPES, LIST_COPY } from '../../config'
 import { TaskItem } from './TaskItem'
-import { dataMock } from '../../data'
 import { useState } from 'react'
+import { getId } from '../../utils'
 
-export const TaskItemList = () => {
-  const [isSubmit, setIsSubmit] = useState(false)
+export const TaskItemList = ({ tasks, setTasks }) => {
   const [isSelect, setIsSelect] = useState(false)
-  const [newTask, setNewTask] = useState('')
-  const [data, setData] = useState(dataMock)
+  const [isSubmit, setIsSubmit] = useState(false)
 
-  const getId = () => {
-    return Date.now().toString().slice(-5)
-  }
-  const createNewTask = () => {
+  const createNewTask = newTask => {
     if (!newTask) return null
 
     const newData = {
       id: getId(),
       name: newTask,
       description: 'This task has no description',
+      status: 'backlog',
     }
 
-    setData(v => {
-      const newArr = v
-      newArr[0].tasks.push(newData)
-      return newArr
-    })
-
-    setNewTask('')
+    setTasks(v => [...v, newData])
     setIsSubmit(false)
   }
 
-  const getNewTask = (title, id) => {
-    if (title === 'Backlog') {
-      const task = data[0].tasks.find(task => task.id === id)
-      const taskIndex = data[0].tasks.findIndex(task => task.id === id)
+  // const getNewTask = (title, id) => {
+  //   if (title === 'Backlog') {
+  //     const task = data[0].tasks.find(task => task.id === id)
+  //     const taskIndex = data[0].tasks.findIndex(task => task.id === id)
 
-      setData(v => {
-        const newArr = v
-        newArr[1].tasks.push(task)
-        newArr[0].tasks.splice(taskIndex, 1)
-        return newArr
-      })
-    }
+  //     setData(v => {
+  //       const newArr = v
+  //       newArr[1].tasks.push(task)
+  //       newArr[0].tasks.splice(taskIndex, 1)
+  //       return newArr
+  //     })
+  //   }
 
-    if (title === 'Ready') {
-      const task = data[1].tasks.find(task => task.id === id)
-      const taskIndex = data[1].tasks.findIndex(task => task.id === id)
+  //   if (title === 'Ready') {
+  //     const task = data[1].tasks.find(task => task.id === id)
+  //     const taskIndex = data[1].tasks.findIndex(task => task.id === id)
 
-      setData(v => {
-        const newArr = v
-        newArr[2].tasks.push(task)
-        newArr[1].tasks.splice(taskIndex, 1)
-        return newArr
-      })
-    }
+  //     setData(v => {
+  //       const newArr = v
+  //       newArr[2].tasks.push(task)
+  //       newArr[1].tasks.splice(taskIndex, 1)
+  //       return newArr
+  //     })
+  //   }
 
-    if (title === 'In Progress') {
-      const task = data[2].tasks.find(task => task.id === id)
-      const taskIndex = data[2].tasks.findIndex(task => task.id === id)
-      setData(v => {
-        const newArr = v
-        newArr[3].tasks.push(task)
-        newArr[2].tasks.splice(taskIndex, 1)
-        return newArr
-      })
-    }
+  //   if (title === 'In Progress') {
+  //     const task = data[2].tasks.find(task => task.id === id)
+  //     const taskIndex = data[2].tasks.findIndex(task => task.id === id)
+  //     setData(v => {
+  //       const newArr = v
+  //       newArr[3].tasks.push(task)
+  //       newArr[2].tasks.splice(taskIndex, 1)
+  //       return newArr
+  //     })
+  //   }
 
-    setIsSelect(false)
-  }
-
+  //   setIsSelect(false)
+  // }
   return (
     <div className={style.tasks}>
-      {dataMock.map(block => {
+      {Object.values(LIST_TYPES).map(type => {
+        const listTasks = tasks.filter(task => task.status === type)
+
         return (
           <TaskItem
-            title={block.title}
-            tasks={block.tasks}
-            key={block.title}
+            title={LIST_COPY[type]}
+            tasks={listTasks}
+            type={type}
+            key={type}
+            createNewTask={createNewTask}
             isSubmit={isSubmit}
             setIsSubmit={setIsSubmit}
-            isSelect={isSelect}
-            setIsSelect={setIsSelect}
-            createNewTask={createNewTask}
-            getNewTask={getNewTask}
-            setNewTask={setNewTask}
-            newTask={newTask}
-            data={data}
+            // isSelect={isSelect}
+            // setIsSelect={setIsSelect}
+            // createNewTask={createNewTask}
+            // getNewTask={getNewTask}
+            // data={data}
           />
         )
       })}
