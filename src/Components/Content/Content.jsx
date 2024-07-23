@@ -5,7 +5,7 @@ export const Content = ({ tasks, setTasks }) => {
   return (
     <>
       <main className={style.content}>
-        <TaskItemList tasks={tasks} setData={setTasks} />
+        <TaskItemList tasks={tasks} setTasks={setTasks} />
       </main>
     </>
   )
