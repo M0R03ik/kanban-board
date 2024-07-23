@@ -4,6 +4,7 @@ import { Button } from '../Button/Button'
 import { DropDown } from '../DropDown/DropDown'
 import { useState } from 'react'
 import { Form } from '../Form/Form'
+import { Link } from 'react-router-dom'
 
 export const TaskItem = ({
   title,
@@ -26,9 +27,11 @@ export const TaskItem = ({
       <ul className={style.list}>
         {tasks.map(task => {
           return (
-            <li className={style.item} key={task.id}>
-              {task.name}
-            </li>
+            <Link to={`/tasks/${task.id}`} className={style.taskLink}>
+              <li className={style.item} key={task.id}>
+                {task.name}
+              </li>
+            </Link>
           )
         })}
       </ul>

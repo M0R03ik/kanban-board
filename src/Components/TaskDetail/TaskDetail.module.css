@@ -1,0 +1,56 @@
+.taskDetail {
+  padding: 23px;
+  position: relative;
+  background-color: var(--color-light);
+  border-radius: var(--border-radius);
+  height: 100%;
+}
+
+.title {
+  margin: 0;
+  margin-bottom: 35px;
+  font-weight: 400;
+  font-size: 24px;
+}
+
+.description {
+  margin: 0;
+}
+
+.closeButton {
+  position: absolute;
+  top: 17px;
+  right: 23px;
+  padding: 0;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: inherit;
+  width: 30px;
+  aspect-ratio: 1;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: var(--color-blue);
+  }
+
+  &::before,
+  &::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    /* display: inline-block; */
+    content: '';
+    width: 90%;
+    height: 1px;
+    background-color: var(--color-dark);
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+  &::after {
+    transform: rotate(-45deg);
+  }
+}
