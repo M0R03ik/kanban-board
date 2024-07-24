@@ -28,3 +28,21 @@
     transition: all 0.2s;
   }
 }
+
+@media screen and (max-width: 630px) {
+  .footer {
+    flex-direction: column;
+    row-gap: 20px;
+  }
+
+  .tasks {
+    column-gap: 15px;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .tasks {
+    flex-direction: column;
+    row-gap: 10px;
+  }
+}

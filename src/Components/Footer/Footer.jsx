@@ -1,4 +1,4 @@
-import style from './style.module.css'
+import style from './Footer.module.css'
 import { LIST_TYPES } from '../../config'
 
 export const Footer = ({ tasks }) => {

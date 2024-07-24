@@ -46,3 +46,20 @@
   color: inherit;
   text-decoration: none;
 }
+
+@media screen and (max-width: 1024px) {
+  .tasks {
+    gap: 10px;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .tasks {
+    flex-direction: column;
+    row-gap: 50px;
+  }
+
+  .task {
+    max-height: 400px;
+  }
+}
