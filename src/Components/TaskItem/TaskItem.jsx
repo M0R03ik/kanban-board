@@ -9,25 +9,39 @@ import { Link } from 'react-router-dom'
 export const TaskItem = ({
   title,
   tasks,
-  type,
   setTasks,
+  listTasks,
+  type,
   isSubmit,
   setIsSubmit,
-  // isSelect,
-  // setIsSelect,
   createNewTask,
-  // getNewTask,
-  // newTask,
-  // setNewTask,
-  // data,
 }) => {
+  const [isSelect, setIsSelect] = useState(false)
+
+  const getNewTask = (type, id) => {
+    const updatedTask = tasks.find(task => task.id === id)
+    const updatedTaskIndex = tasks.findIndex(task => task.id === id)
+    updatedTask.status = type
+
+    setTasks(arr => {
+      arr.splice(updatedTaskIndex, 1)
+      return [...arr, updatedTask]
+    })
+
+    setIsSelect(false)
+  }
+
   return (
     <div className={style.task}>
       <h2 className={style.title}>{title}</h2>
       <ul className={style.list}>
-        {tasks.map(task => {
+        {listTasks.map(task => {
           return (
-            <Link to={`/tasks/${task.id}`} className={style.taskLink}>
+            <Link
+              to={`/tasks/${task.id}`}
+              className={style.taskLink}
+              key={task.id}
+            >
               <li className={style.item} key={task.id}>
                 {task.name}
               </li>
@@ -35,6 +49,7 @@ export const TaskItem = ({
           )
         })}
       </ul>
+
       {isSubmit && type === LIST_TYPES.BACKLOG && (
         <Form createNewTask={createNewTask} />
       )}
@@ -44,53 +59,61 @@ export const TaskItem = ({
         </Button>
       ) : null}
 
-      {type !== LIST_TYPES.BACKLOG && <Button>Add</Button>}
-
-      {/* 
-
-      {isSelect && title === 'Ready' && (
-        <DropDown {...data[0]} onClick={getNewTask} />
+      {isSelect && type === LIST_TYPES.READY && (
+        <DropDown
+          tasksList={tasks.filter(task => task.status === LIST_TYPES.BACKLOG)}
+          type={type}
+          onClick={getNewTask}
+        />
       )}
-
-      {title === 'Ready' && (
+      {type === LIST_TYPES.READY && (
         <Button
-          disabled={!data[0].tasks.length}
-          key={title}
-          onClick={() => setIsSelect(true)}
+          disabled={
+            !tasks.filter(task => task.status === LIST_TYPES.BACKLOG).length
+          }
+          onClick={() => setIsSelect(!isSelect)}
         >
-          Add
+          {isSelect ? 'Cancel' : 'Add'}
         </Button>
       )}
 
-      {isSelect && title === 'In Progress' && (
-        <DropDown {...data[1]} onClick={getNewTask} />
+      {isSelect && type === LIST_TYPES.IN_PROGRESS && (
+        <DropDown
+          tasksList={tasks.filter(task => task.status === LIST_TYPES.READY)}
+          type={type}
+          onClick={getNewTask}
+        />
       )}
-
-      {title === 'In Progress' && (
+      {type === LIST_TYPES.IN_PROGRESS && (
         <Button
-          disabled={!data[1].tasks.length}
-          key={title}
-          onClick={() => setIsSelect(true)}
+          disabled={
+            !tasks.filter(task => task.status === LIST_TYPES.READY).length
+          }
+          onClick={() => setIsSelect(!isSelect)}
         >
-          Add
+          {isSelect ? 'Cancel' : 'Add'}
         </Button>
       )}
 
-      {isSelect && title === 'Finished' && (
-        <DropDown {...data[2]} onClick={getNewTask} />
+      {isSelect && type === LIST_TYPES.FINISHED && (
+        <DropDown
+          tasksList={tasks.filter(
+            task => task.status === LIST_TYPES.IN_PROGRESS
+          )}
+          type={type}
+          onClick={getNewTask}
+        />
       )}
-
-      {title === 'Finished' && (
+      {type === LIST_TYPES.FINISHED && (
         <Button
-          disabled={!data[2].tasks.length}
-          key={title}
-          onClick={() => setIsSelect(true)}
+          disabled={
+            !tasks.filter(task => task.status === LIST_TYPES.IN_PROGRESS).length
+          }
+          onClick={() => setIsSelect(!isSelect)}
         >
-          Add
+          {isSelect ? 'Cancel' : 'Add'}
         </Button>
       )}
-
-       */}
     </div>
   )
 }
