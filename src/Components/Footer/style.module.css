@@ -19,9 +19,12 @@
   }
 }
 
-.menuButton {
-  width: 24px;
-  height: 24px;
-  background-color: transparent;
-  border: none;
+.link {
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    color: var(--color-gray);
+    transition: all 0.2s;
+  }
 }
