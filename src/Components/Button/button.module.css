@@ -31,6 +31,10 @@
       background-color: inherit;
     }
   }
+
+  &:focus-visible {
+    outline: none;
+  }
 }
 
 .submit {

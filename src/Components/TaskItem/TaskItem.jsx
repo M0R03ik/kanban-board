@@ -2,7 +2,7 @@ import style from './TaskItem.module.css'
 import { LIST_TYPES } from '../../config'
 import { Button } from '../Button/Button'
 import { DropDown } from '../DropDown/DropDown'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Form } from '../Form/Form'
 import { Link } from 'react-router-dom'
 
@@ -30,6 +30,22 @@ export const TaskItem = ({
 
     setIsSelect(false)
   }
+
+  const handleClick = () => {
+    setIsSelect(!isSelect)
+  }
+
+  const handleKeyDown = e => {
+    if (e.key === 'Escape' && isSelect) {
+      setIsSelect(false)
+    }
+    return undefined
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [handleKeyDown])
 
   return (
     <div className={style.task}>
@@ -71,7 +87,7 @@ export const TaskItem = ({
           disabled={
             !tasks.filter(task => task.status === LIST_TYPES.BACKLOG).length
           }
-          onClick={() => setIsSelect(!isSelect)}
+          onClick={handleClick}
         >
           {isSelect ? 'Cancel' : 'Add'}
         </Button>
@@ -89,7 +105,7 @@ export const TaskItem = ({
           disabled={
             !tasks.filter(task => task.status === LIST_TYPES.READY).length
           }
-          onClick={() => setIsSelect(!isSelect)}
+          onClick={handleClick}
         >
           {isSelect ? 'Cancel' : 'Add'}
         </Button>
@@ -109,7 +125,7 @@ export const TaskItem = ({
           disabled={
             !tasks.filter(task => task.status === LIST_TYPES.IN_PROGRESS).length
           }
-          onClick={() => setIsSelect(!isSelect)}
+          onClick={handleClick}
         >
           {isSelect ? 'Cancel' : 'Add'}
         </Button>
