@@ -27,7 +27,6 @@ export const DropDown = ({ tasksList, type, onClick }) => {
   const dismiss = useDismiss(context)
   const role = useRole(context)
 
-  // Merge all the interactions into prop getters
   const { getReferenceProps, getFloatingProps } = useInteractions([
     click,
     dismiss,
