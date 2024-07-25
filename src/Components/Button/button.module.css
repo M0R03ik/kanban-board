@@ -40,7 +40,7 @@
 .submit {
   column-gap: 0px;
   color: var(--color-light);
-  background-color: var(--color-blue);
+  background-color: var(--color-blue-dark);
 
   &::before {
     content: '';
