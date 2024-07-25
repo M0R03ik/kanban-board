@@ -1,70 +1,96 @@
-# Getting Started with Create React App
+# Проект Kanban Board
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Проект, который направлен на отработку навыков разработки на фреймворке React.js
 
-## Available Scripts
+В рамках этого проекта нужно сделать канбан-доску – популярный инструмент для визуализации и разбивки какой-либо задачи на этапы.
 
-In the project directory, you can run:
+Макет находится [здесь](https://www.figma.com/file/gmwg0Me1T6szwVqd7KSYL6/Kanban).
 
-### `npm start`
+## Функциональные требования
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Исходное состояние
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Исходная Канбан-доска должна иметь 4 блока с задачами:
 
-### `npm test`
+- **Backlog** (задачи, которые требуют уточнения перед тем, как брать их в работу);
+- **Ready** (задачи, которые могут быть взяты в работу);
+- **In progress** (задачи, которые уже в работе);
+- **Finished** (законченные задачи).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Добавление новой задачи
 
-### `npm run build`
+Первоначально каждая задача всегда размещается в бэклоге — для анализа. При клике на кнопку _«+ Add card»_ в карточке Backlog должно появляться поле ввода в конце списка, между последней задачей и кнопкой. При этом кнопка _«+ Add card»_ должна меняться на _«Submit»_.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> ### Алгоритм добавления задачи:
+>
+> Нажали кнопку _«+ Add card»_ → появилось поле для редактирования → ввели название → нажали кнопку _«Submit»_ — задача появилась в бэклоге (при условии, что название введено).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Нельзя добавить в список задачу с отсутствующим названием. Если при нажатии _«Submit»_ поле с названием пустое, в список ничего не добавляется.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Перемещение задач между списками
 
-### `npm run eject`
+> Задачи для списка _Ready_ берутся из _Backlog_. При клике на _«+ Add card»_ в карточке _Ready_, в конце списка появляется дропдаун с задачами из списка _Backlog_. После клика на задачу из дропдауна она должна появиться в списке _Ready_ последней, при этом эта задача должна быть удалена из _Backlog_.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Eсли _Backlog_ пустой (в списке нет задач), то кнопка _«+ Add card»_ в списке _Ready_ должна быть неактивна, то есть при клике на неё ничего не происходит. Неактивной кнопке нужно назначить атрибут `disabled`. Активная и неактивная кнопки должны отличаться визуально: например, цветом и отсутствием `cursor: pointer`.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Остальные списки (_In progress_ и _Finished_) работают по тому же принципу. Задачи для списка _In progress_ берутся из _Ready_, а задачи для списка _Finished_ — из _In progress_.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Сохранение внесенных изменений
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+> Любые изменения, внесенные в приложение (добавление новых задач, перемещение задач между списками, изменение описания задачи), должны сохраняться в **localStorage**.
 
-## Learn More
+При загрузке приложения должны отображаться задачи, записанные в _localStorage_ (или пустые списки, если в _localStorage_ ничего нет). Если внести изменения и обновить страницу, то изменения должны сохраниться.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Детальная страница задачи
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+> Добавьте возможность перехода на отдельную страницу какой-либо задачи в списке при клике на её заголовок.
 
-### Code Splitting
+Страница с задачей должна иметь URL, отличный от того, который используется для главной страницы. URL должен содержать id задачи. Пример: `localhost:3000/tasks/12345` откроет страницу задачи с `id 12345`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+О том, как именно реализовать такой переход, написано подробнее в разделе «Требования к React».
 
-### Analyzing the Bundle Size
+На детальной странице задачи должны быть выведены название задачи и её описание. Если описания нет, вывести вместо него фразу `"This task has no description"`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Поле с описанием должно быть редактируемым. Детали реализации этой функции на ваше усмотрение. Можете реализовать возможность редактирования при клике на текст или добавить специальную кнопку, которая позволит отредактировать описание.
 
-### Making a Progressive Web App
+При клике на крестик в правом верхнем углу осуществляется переход обратно на главную страницу.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Вывод количества задач в футер
 
-### Advanced Configuration
+В футере должно быть выведено количество активных и завершенных задач.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **Active tasks** — отображает количество задач в списке Backlog.
+- **Finished tasks** — отображает количество задач в списке Finished.
 
-### Deployment
+### Выпадающее меню пользователя
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+> Реализуйте выпадающий список, который будет появляться при клике на блок в правом верхнем углу страницы — аватар пользователя со стрелкой.
 
-### `npm run build` fails to minify
+Стрелочка рядом с аватаром должна смотреть вверх, когда меню открыто, и вниз, когда меню закрыто.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+При клике на пункты меню ничего не происходит, но нужно добавить выделение пунктов при наведении курсора (например, поменять цвет текста или добавить подчеркивание).
+
+### Требования к React
+
+1. Интерфейс должен быть поделен на компоненты. Перед началом работы хорошенько обдумайте, какие компоненты вы будете использовать. Деление на компоненты должно быть логичным и оправданным.
+2. После того как определитесь с делением на компоненты, подумайте о том, как верно организовать файловую структуру.
+3. Следуйте принципам модульности (используйте _export_, _import_).
+4. Возможно использование как классовых компонентов, так и функциональных.
+5. Используйте Synthetic events для работы с событиями.
+6. Для вывода разного состояния элементов в зависимости от действий пользователя (пример: раскрытое/свернутое меню пользователя) используйте условный рендеринг.
+7. Для реализации отдельных страниц для каждой задачи и перехода между страницами используйте библиотеку react-router.
+8. При написании кода старайтесь следовать принципам KISS (Keep It Short and Simple — не усложняй) и DRY (Don’t Repeat Yourself — не повторяйся).
+
+### Требования к верстке и CSS
+
+1. Вёрстка должна соответствовать макету. Добиваться «pixel-perfect» соответствия не обязательно, но основные моменты должны быть соблюдены: цветовая гамма, шрифты, размеры, отступы.
+2. Приложение должно корректно отображаться и на мобильных устройствах. Дизайн для мобильной версии вы можете найти в макете.
+3. Соблюдайте семантическую вёрстку. В приложении должны присутствовать разделы `<header>`, `<main>` и `<footer>`. Кнопки должна быть реализованы элементом `<button>`, элементы дропдауна — списком `<select>` и так далее.
+4. При наведении курсора на любые кликабельные элементы должен появляться `cursor: pointer`.
+5. Учитывайте состояния кнопки «+ Add card» — активная и неактивная.
+
+   - Если кнопка **активна**, её внешний вид должен соответствовать макету. При наведении она должна подсвечиваться (менять цвет), а курсор должен меняться на `pointer`.
+   - Если кнопка **неактивна** (назначен атрибут disabled), её цвет должен отличаться от активного состояния, кнопка не должна реагировать на наведение курсора (цвет остаётся таким же, не появляется курсор `pointer`).
+
+6. Можете использовать любой вариант подключения стилей на ваше усмотрение: общий файл стилей проекта, CSS-модули или специальные React-библиотеки для стилизации компонентов (например, Styled Components).
+7. Использовать селекторы по тегу и `id` для задания стилей нельзя. Используйте классы.
