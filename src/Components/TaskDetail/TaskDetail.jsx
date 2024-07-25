@@ -5,10 +5,10 @@ import { Button } from '../Button/Button'
 
 export const TaskDetail = ({ tasks, setTasks }) => {
   const [isEdit, setIsEdit] = useState(false)
-  const [taskDescription, setTaskDescription] = useState('')
 
   const { taskId } = useParams()
   const task = tasks.find(task => task.id === taskId)
+  const [taskDescription, setTaskDescription] = useState(task.description)
 
   const handleSubmit = e => {
     e.preventDefault()
