@@ -4,6 +4,7 @@
   align-items: center;
   padding: 8px 16px;
   background-color: var(--color-blue-dark);
+  position: relative;
 }
 
 .title {
@@ -16,6 +17,7 @@
 .userMenu {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .avatar {
@@ -27,9 +29,54 @@
 
 .menuButton {
   width: 24px;
-  height: 24px;
+  height: 100%;
   background-color: transparent;
   border: none;
+  position: relative;
+  text-align: center;
+  transition: all 0.5s;
+}
+
+.rotate {
+  transform: rotateX(180deg);
+}
+
+.menu {
+  position: absolute;
+  width: 134px;
+  top: 56px;
+  right: 9px;
+}
+
+.menuList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-light);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  position: relative;
+  z-index: 1000;
+}
+
+.menuItem {
+  padding: 7px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: var(--color-gray);
+  }
+}
+
+.triangle {
+  position: absolute;
+  top: -5px;
+  left: 78px;
+  width: 11px;
+  aspect-ratio: 1;
+  background-color: var(--color-light);
+  transform: rotate(-45deg);
 }
 
 @media screen and (max-width: 420px) {
