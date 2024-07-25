@@ -13,7 +13,7 @@ export const TaskItemList = ({ tasks, setTasks }) => {
     const newData = {
       id: getId(),
       name: newTask,
-      description: 'This task has no description',
+      description: '',
       status: 'backlog',
     }
 
